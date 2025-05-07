@@ -90,6 +90,22 @@ function extractPlayerStatsFromMatch(match: MatchDetails): PlayerStat[] {
             gameDate: new Date(match.gameCreationDate),
             gameId: match.gameId,
             gameDuration: match.gameDuration,
+            position: (() => {
+                switch (participant.timeline.lane) {
+                    case "TOP":
+                        return "TOP";
+                    case "JUNGLE":
+                        return "JUNGLE";
+                    case "MIDDLE":
+                        return "MID";
+                    case "BOTTOM":
+                        return participant.timeline.role === "CARRY" ? "ADC" : "SUPPORT";
+                    default:
+                        return "ADC";
+                }
+            })(),
+
+
         };
         playerStats.push(stat);
     });

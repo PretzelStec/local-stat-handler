@@ -1,16 +1,24 @@
 import { syncPlayers, syncPlayerStats } from "./domain";
 import { getMatchDetails } from "./infrastructure/league-client/league-client";
-import { initMongoClient, insertDocument } from "./infrastructure/mongo";
+import { initMongoClient } from "./infrastructure/mongo";
+import minimist from "minimist";
 
 import { config } from "dotenv";
 config();
+
+const args = minimist(process.argv.slice(2), {
+    alias: {
+        m: "match",
+    },
+});
+console.log('Parsed args:', args);
 
 (async () => {
     try {
         await initMongoClient();
         console.log("Starting application...");
 
-        const match = await getMatchDetails("5281336852");
+        const match = await getMatchDetails(args.match);
         if (!match) {
             console.error("Match not found");
             process.exit(1);

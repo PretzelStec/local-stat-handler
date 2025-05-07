@@ -13,6 +13,9 @@ export interface PlayerStat {
     gameDate: Date;
     gameId: number;
     gameDuration: number;
+    position: Position;
 }
+
+type Position = "TOP" | "JUNGLE" | "MID" | "ADC" | "SUPPORT";
 
 export * from "./player-stat";

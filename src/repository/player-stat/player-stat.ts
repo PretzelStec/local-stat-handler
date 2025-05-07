@@ -11,6 +11,7 @@ export async function persistPlayerStat(playerStat: PlayerStat): Promise<void> {
     if (!existingPlayerStat) {
         await insertDocument("player-stats", playerStat);
     } else {
+        console.log("Updating player stat", playerStat);
         await updateDocument("player-stats", { playerId: playerStat.playerId, gameId: playerStat.gameId }, playerStat);
     }
 }
